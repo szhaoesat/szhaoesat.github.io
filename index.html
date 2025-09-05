@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dr. Jane Doe | Academic Profile</title>
+    <meta name="description" content="Academic profile of Dr. Jane Doe, showcasing research, publications, and professional experience">
+    <meta name="keywords" content="academic, researcher, professor, publications, CV">
+    <meta name="author" content="Dr. Jane Doe">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1e40af',
+                        secondary: '#1e3a8a',
+                        accent: '#3b82f6',
+                        light: '#f8fafc',
+                        dark: '#1e293b'
+                    },
+                    fontFamily: {
+                        sans: ['Lato', 'sans-serif'],
+                        serif: ['Merriweather', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        .hero-image {
+            background-image: linear-gradient(rgba(30, 64, 175, 0.8), rgba(30, 58, 138, 0.8)), url('http://static.photos/education/1200x630/10');
+            background-size: cover;
+            background-position: center;
+        }
+        .publication-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link:after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 0;
+            background-color: #3b82f6;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover:after {
+            width: 100%;
+        }
+        .active:after {
+            width: 100%;
+        }
+        input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.5);
+        }
+    </style>
+</head>
+<body class="font-sans text-dark bg-light">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold text-primary">Dr. Jane Doe</a>
+            <div class="hidden md:flex space-x-8">
+                <a href="#about" class="nav-link text-dark hover:text-primary transition">About</a>
+                <a href="#research" class="nav-link text-dark hover:text-primary transition">Research</a>
+                <a href="#publications" class="nav-link text-dark hover:text-primary transition">Publications</a>
+                <a href="#teaching" class="nav-link text-dark hover:text-primary transition">Teaching</a>
+                <a href="#cv" class="nav-link text-dark hover:text-primary transition">CV</a>
+                <a href="#contact" class="nav-link text-dark hover:text-primary transition">Contact</a>
+            </div>
+            <button class="md:hidden focus:outline-none" id="menu-toggle">
+                <i data-feather="menu"></i>
+            </button>
+        </div>
+        <!-- Mobile menu -->
+        <div class="md:hidden hidden bg-white py-2 px-4 shadow-md" id="mobile-menu">
+            <a href="#about" class="block py-2 text-dark hover:text-primary transition">About</a>
+            <a href="#research" class="block py-2 text-dark hover:text-primary transition">Research</a>
+            <a href="#publications" class="block py-2 text-dark hover:text-primary transition">Publications</a>
+            <a href="#teaching" class="block py-2 text-dark hover:text-primary transition">Teaching</a>
+            <a href="#cv" class="block py-2 text-dark hover:text-primary transition">CV</a>
+            <a href="#contact" class="block py-2 text-dark hover:text-primary transition">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-image text-white py-20 md:py-32">
+        <div class="container mx-auto px-4 text-center" data-aos="fade-up">
+            <h1 class="text-4xl md:text-5xl font-bold mb-4">Dr. Jane Doe</h1>
+            <p class="text-xl md:text-2xl mb-8">Professor of Computer Science</p>
+            <p class="max-w-2xl mx-auto text-lg">Specializing in Artificial Intelligence and Human-Computer Interaction</p>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">About Me</h2>
+            <div class="flex flex-col md:flex-row items-center gap-8">
+                <div class="md:w-1/3" data-aos="fade-right">
+                    <img src="http://static.photos/people/640x360/1" alt="Dr. Jane Doe" class="rounded-lg shadow-lg w-full max-w-xs mx-auto">
+                </div>
+                <div class="md:w-2/3" data-aos="fade-left">
+                    <p class="text-lg mb-4">I am a Professor of Computer Science at Prestigious University, where I lead the Human-Centered AI Research Group. My research focuses on developing AI systems that are understandable, controllable, and beneficial to human users.</p>
+                    <p class="text-lg mb-4">I received my Ph.D. from MIT in 2010, and have since published over 50 peer-reviewed papers in top-tier conferences and journals. My work has been recognized with several awards, including the ACM SIGCHI Best Paper Award and the NSF CAREER Award.</p>
+                    <p class="text-lg">When I'm not researching or teaching, I enjoy hiking, photography, and playing the violin.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Section -->
+    <section id="research" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">Research</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up">
+                    <h3 class="text-xl font-bold mb-3 text-primary">Explainable AI</h3>
+                    <p class="mb-4">Developing methods to make AI decision-making processes transparent and interpretable to end-users, enabling trust and effective human-AI collaboration.</p>
+                    <a href="#" class="text-accent hover:underline flex items-center">
+                        <span>Learn more</span>
+                        <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                    </a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-3 text-primary">AI for Social Good</h3>
+                    <p class="mb-4">Applying AI techniques to address societal challenges in healthcare, education, and environmental sustainability.</p>
+                    <a href="#" class="text-accent hover:underline flex items-center">
+                        <span>Learn more</span>
+                        <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                    </a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-bold mb-3 text-primary">Human-AI Interaction</h3>
+                    <p class="mb-4">Investigating how humans interact with AI systems and designing interfaces that support effective collaboration.</p>
+                    <a href="#" class="text-accent hover:underline flex items-center">
+                        <span>Learn more</span>
+                        <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                    </a>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md" data-aos="fade-up" data-aos-delay="300">
+                    <h3 class="text-xl font-bold mb-3 text-primary">Ethical AI</h3>
+                    <p class="mb-4">Examining the ethical implications of AI systems and developing frameworks for responsible AI development and deployment.</p>
+                    <a href="#" class="text-accent hover:underline flex items-center">
+                        <span>Learn more</span>
+                        <i data-feather="arrow-right" class="ml-1 w-4 h-4"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications Section -->
+    <section id="publications" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">Publications</h2>
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex rounded-md shadow-sm">
+                    <button type="button" class="px-4 py-2 text-sm font-medium rounded-l-lg bg-primary text-white">
+                        Recent
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium bg-gray-100 hover:bg-gray-200">
+                        Journal Articles
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium bg-gray-100 hover:bg-gray-200">
+                        Conference Papers
+                    </button>
+                    <button type="button" class="px-4 py-2 text-sm font-medium rounded-r-lg bg-gray-100 hover:bg-gray-200">
+                        Books & Chapters
+                    </button>
+                </div>
+            </div>
+            <div class="space-y-6">
+                <div class="publication-card bg-gray-50 p-6 rounded-lg transition duration-300 ease-in-out" data-aos="fade-up">
+                    <h3 class="text-xl font-bold mb-2">Understanding User Trust in AI Systems</h3>
+                    <p class="text-gray-600 mb-2">Doe, J., Smith, A., & Johnson, B. (2023). ACM Transactions on Interactive Intelligent Systems, 13(2), 1-30.</p>
+                    <p class="mb-4">This study examines factors influencing user trust in AI systems across different domains and proposes design guidelines for trustworthy AI.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-accent hover:underline flex items-center">
+                            <i data-feather="file-text" class="mr-1 w-4 h-4"></i>
+                            <span>PDF</span>
+                        </a>
+                        <a href="#" class="text-accent hover:underline flex items-center">
+                            <i data-feather="external-link" class="mr-1 w-4 h-4"></i>
+                            <span>DOI</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="publication-card bg-gray-50 p-6 rounded-lg transition duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-2">Designing Explainable AI for Healthcare</h3>
+                    <p class="text-gray-600 mb-2">Doe, J., & Williams, C. (2022). Proceedings of the CHI Conference on Human Factors in Computing Systems, 1-15.</p>
+                    <p class="mb-4">We present a framework for designing explainable AI systems in healthcare contexts and evaluate its effectiveness through user studies with medical professionals.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-accent hover:underline flex items-center">
+                            <i data-feather="file-text" class="mr-1 w-4 h-4"></i>
+                            <span>PDF</span>
+                        </a>
+                        <a href="#" class="text-accent hover:underline flex items-center">
+                            <i data-feather="external-link" class="mr-1 w-4 h-4"></i>
+                            <span>DOI</span>
+                        </a>
+                    </div>
+                </div>
+                <div class="publication-card bg-gray-50 p-6 rounded-lg transition duration-300 ease-in-out" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-bold mb-2">Ethical Guidelines for AI Development</h3>
+                    <p class="text-gray-600 mb-2">Doe, J., et al. (2021). AI Ethics Journal, 5(3), 210-235.</p>
+                    <p class="mb-4">A comprehensive review of ethical considerations in AI development with practical guidelines for researchers and practitioners.</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-accent hover:underline flex items-center">
+                            <i data-feather="file-text" class="mr-1 w-4 h-4"></i>
+                            <span>PDF</span>
+                        </a>
+                        <a href="#" class="text-accent hover:underline flex items-center">
+                            <i data-feather="external-link" class="mr-1 w-4 h-4"></i>
+                            <span>DOI</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary">
+                    View All Publications
+                    <i data-feather="arrow-right" class="ml-2 w-5 h-5"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Teaching Section -->
+    <section id="teaching" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">Teaching</h2>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div data-aos="fade-up">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Current Courses</h3>
+                    <ul class="space-y-4">
+                        <li class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold">CS 501: Introduction to Artificial Intelligence</h4>
+                            <p class="text-gray-600">Fall 2023</p>
+                            <p>Fundamental concepts and techniques in artificial intelligence, including search, knowledge representation, machine learning, and neural networks.</p>
+                        </li>
+                        <li class="bg-white p-4 rounded-lg shadow-sm">
+                            <h4 class="font-bold">CS 645: Human-AI Interaction</h4>
+                            <p class="text-gray-600">Spring 2024</p>
+                            <p>Design and evaluation of interactive AI systems, focusing on human-centered approaches to AI development.</p>
+                        </li>
+                    </ul>
+                </div>
+                <div data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Teaching Philosophy</h3>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <p class="mb-4">I believe in creating an inclusive learning environment where students from diverse backgrounds can thrive. My teaching approach emphasizes:</p>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li>Active learning through hands-on projects and real-world applications</li>
+                            <li>Critical thinking and problem-solving skills</li>
+                            <li>Collaboration and peer learning</li>
+                            <li>Connecting course material to current research and industry trends</li>
+                        </ul>
+                    </div>
+                    <div class="mt-6 bg-white p-6 rounded-lg shadow-sm">
+                        <h4 class="font-bold mb-2">Teaching Resources</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <a href="#" class="px-3 py-1 bg-gray-100 rounded-full text-sm flex items-center">
+                                <i data-feather="file-text" class="mr-1 w-3 h-3"></i>
+                                Lecture Slides
+                            </a>
+                            <a href="#" class="px-3 py-1 bg-gray-100 rounded-full text-sm flex items-center">
+                                <i data-feather="youtube" class="mr-1 w-3 h-3"></i>
+                                Video Lectures
+                            </a>
+                            <a href="#" class="px-3 py-1 bg-gray-100 rounded-full text-sm flex items-center">
+                                <i data-feather="github" class="mr-1 w-3 h-3"></i>
+                                Code Examples
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CV Section -->
+    <section id="cv" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">Curriculum Vitae</h2>
+            <div class="max-w-4xl mx-auto">
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm mb-8" data-aos="fade-up">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Education</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold">Ph.D. in Computer Science</h4>
+                            <p class="text-gray-600">Massachusetts Institute of Technology, 2010</p>
+                            <p>Thesis: "Human-Centered Approaches to Explainable AI"</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">M.S. in Computer Science</h4>
+                            <p class="text-gray-600">Stanford University, 2006</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">B.S. in Computer Science</h4>
+                            <p class="text-gray-600">University of California, Berkeley, 2004</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm mb-8" data-aos="fade-up" data-aos-delay="100">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Academic Positions</h3>
+                    <div class="space-y-4">
+                        <div>
+                            <h4 class="font-bold">Professor of Computer Science</h4>
+                            <p class="text-gray-600">Prestigious University, 2018-Present</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Associate Professor</h4>
+                            <p class="text-gray-600">Prestigious University, 2014-2018</p>
+                        </div>
+                        <div>
+                            <h4 class="font-bold">Assistant Professor</h4>
+                            <p class="text-gray-600">Prestigious University, 2010-2014</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg shadow-sm" data-aos="fade-up" data-aos-delay="200">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Selected Honors & Awards</h3>
+                    <ul class="list-disc pl-5 space-y-2">
+                        <li>NSF CAREER Award, 2015</li>
+                        <li>ACM SIGCHI Best Paper Award, 2019</li>
+                        <li>University Distinguished Teaching Award, 2017</li>
+                        <li>Google Faculty Research Award, 2016</li>
+                    </ul>
+                </div>
+                <div class="text-center mt-8">
+                    <a href="#" class="inline-flex items-center px-6 py-3 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary">
+                        <i data-feather="download" class="mr-2 w-5 h-5"></i>
+                        Download Full CV (PDF)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12" data-aos="fade-up">Contact</h2>
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <div data-aos="fade-right">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Get In Touch</h3>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+                            <input type="text" id="name" name="name" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2 border">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                            <input type="email" id="email" name="email" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2 border">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700">Subject</label>
+                            <input type="text" id="subject" name="subject" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2 border">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700">Message</label>
+                            <textarea id="message" name="message" rows="4" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-primary focus:ring-primary p-2 border"></textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-base font-medium rounded-md shadow-sm text-white bg-primary hover:bg-secondary">
+                                Send Message
+                                <i data-feather="send" class="ml-2 w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div data-aos="fade-left">
+                    <h3 class="text-xl font-bold mb-4 text-primary">Contact Information</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i data-feather="mail" class="mr-4 mt-1 text-primary"></i>
+                            <div>
+                                <h4 class="font-bold">Email</h4>
+                                <p>jane.doe@prestigious.edu</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i data-feather="map-pin" class="mr-4 mt-1 text-primary"></i>
+                            <div>
+                                <h4 class="font-bold">Office</h4>
+                                <p>Computer Science Building, Room 402</p>
+                                <p>123 University Avenue</p>
+                                <p>Prestigious University, CA 94305</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i data-feather="clock" class="mr-4 mt-1 text-primary"></i>
+                            <div>
+                                <h4 class="font-bold">Office Hours</h4>
+                                <p>Monday & Wednesday: 2:00-4:00 PM</p>
+                                <p>Or by appointment</p>
+                            </div>
+                        </div>
+                    </div>
+                    <h3 class="text-xl font-bold mt-8 mb-4 text-primary">Academic Profiles</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition" aria-label="Google Scholar">
+                            <i data-feather="book" class="text-primary"></i>
+                        </a>
+                        <a href="#" class="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition" aria-label="ResearchGate">
+                            <i data-feather="bar-chart-2" class="text-primary"></i>
+                        </a>
+                        <a href="#" class="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition" aria-label="LinkedIn">
+                            <i data-feather="linkedin" class="text-primary"></i>
+                        </a>
+                        <a href="#" class="p-2 bg-gray-100 rounded-full hover:bg-gray-200 transition" aria-label="GitHub">
+                            <i data-feather="github" class="text-primary"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <p>&copy; 2023 Dr. Jane Doe. All rights reserved.</p>
+                </div>
+                <div class="flex space-x-6">
+                    <a href="#" class="hover:text-accent transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-accent transition">Accessibility</a>
+                    <a href="#" class="hover:text-accent transition">Sitemap</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true
+        });
+
+        // Mobile menu toggle
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+            feather.replace();
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', function() {
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
+
+        // Update active nav link on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('active');
+                }
+            });
+        });
+
+        // Replace feather icons
+        feather.replace();
+    </script>
+</body>
+</html>
