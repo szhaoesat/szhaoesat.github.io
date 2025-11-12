@@ -1,0 +1,937 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Generalizable Reasoning through Compositional Energy Minimization</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Generalizable Reasoning through Compositional Energy Minimization" />
+    <meta
+      property="og:description"
+      content="Generalizable Reasoning through Compositional Energy Minimization"
+    />
+    <meta property="og:image" content="https://alexoarga.github.io/compositional_reasoning/assets/preview.png" />
+    <meta property="og:url" content="https://alexoarga.github.io/compositional_reasoning" />
+    <meta property="og:type" content="website" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/duckie.png" />
+
+    <!-- Import FontAwesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+
+    <!-- Import Academicons for arXiv icon -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons/css/academicons.min.css">
+
+    <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+  rel="stylesheet">
+    <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bulma@1.0.4/css/bulma.min.css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+    <style>
+      :root {
+        --text-primary: #333;
+        --text-secondary: #666;
+        --background-primary: #fff;
+        --background-secondary: #f9f9f9;
+        --border-color: #ccc;
+        --google-blue: #1a73e8;
+        --google-red: #d93025;
+        --google-yellow: #f9ab00;
+        --google-green: #1e8e3e;
+        --perception-color: red;
+        --modeling-color: gray;
+        --manipulation-color: purple;
+        --reasoning-color: #da2f77;
+        --failure-color: black;
+      }
+      .blue {
+        color: var(--google-blue);
+      }
+      .red {
+        color: var(--google-red);
+      }
+      .yellow {
+        color: var(--google-yellow);
+      }
+      .green {
+        color: var(--google-green);
+      }
+      .perception-color {
+        color: var(--perception-color);
+      }
+      .modeling-color {
+        color: var(--modeling-color);
+      }
+      .manipulation-color {
+        color: var(--manipulation-color);
+      }
+      .reasoning-color {
+        color: var(--reasoning-color);
+      }
+      .failure-color {
+        color: var(--failure-color);
+      }
+
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        color: var(--text-primary);
+        text-align: center;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        background: var(--background-primary);
+      }
+
+      /* Display content as a centered column */
+      .content-wrapper {
+        max-width: 800px;
+        margin: 0 auto;
+        background: var(--background-primary);
+        position: relative;
+        z-index: 1;
+        box-sizing: border-box;
+      }
+
+      header {
+        padding: 1.5rem 1rem;
+        margin-bottom: 1rem;
+      }
+
+      h1 {
+        font-size: 2rem;
+        margin: 0 0 0.75rem;
+        line-height: 1.2;
+      }
+
+      .authors {
+        margin-top: 0.5rem;
+      }
+
+      .authors a {
+        text-decoration: none;
+        color: var(--google-blue);
+      }
+
+      .affiliations {
+        color: var(--text-secondary);
+        margin-top: 0.75rem;
+      }
+
+      .affiliations span {
+        display: inline; /* Ensure no additional spacing is introduced */
+        margin: 0;
+        padding: 0;
+      }
+
+      .asterisk-note {
+        font-style: italic;
+        font-size: 0.9rem;
+        color: var(--text-secondary);
+        display: block;
+        margin-top: 0.5rem;
+      }
+
+      .button-wrapper {
+        margin: 2rem auto;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn-link {
+        display: flex;
+        align-items: center;
+        background: var(--text-primary);
+        color: var(--background-primary);
+        text-decoration: none;
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        transition: background 0.2s ease-in-out;
+        font-weight: 500;
+        border: none;
+      }
+
+      .btn-link:hover {
+        background: var(--google-blue);
+      }
+
+      .logo {
+        width: 20px;
+        height: auto;
+      }
+
+      .btn-link i,
+      .btn-link .logo {
+        margin-right: 0.5rem;
+      }
+
+      .text-section {
+        margin: 2rem 0;
+        padding: 0 1rem;
+        text-align: justify;
+      }
+
+      .text-section h2 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .title-general {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+
+      .text-general {
+        text-align: justify;
+        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      .text-section p {
+        line-height: 1.6;
+        margin-bottom: 1rem;
+      }
+
+      .overview-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        width: 90%;
+        max-width: 1200px;
+        margin: 2rem auto;
+        justify-content: center;
+        align-items: start;
+      }
+
+      .overview-column {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        flex: 1 1 100px;
+      }
+
+      .overview-videos {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .video-wrapper {
+        position: relative;
+      }
+
+      video {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 8px;
+        border: 1px solid var(--text-primary);
+        overflow: hidden;
+      }
+
+      .overview-title {
+        font-weight: bold;
+        font-size: 1.1rem;
+        margin: 0;
+      }
+
+      #podcast-section {
+        text-align: center;
+      }
+
+      .section-header {
+        font-weight: 600;
+        line-height: 1.125;
+        text-align: center;
+        font-family: 'Noto Sans', sans-serif;
+        /*COLOR TO BLACK*/
+        color: black;
+      }
+
+      .video-grid {
+        display: grid;
+        /* Creates 3 columns of equal width (1 fraction) */
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px; /* Space between the videos */
+        width: 90%; /* Adjust to your preferred width */
+        max-width: 1200px; /* Max width for large screens */
+        margin: 40px auto; /* Center the grid on the page */
+      }
+
+      .video-title {
+        text-align: center;
+        margin-top: 8px;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+
+      /* Responsive adjustments for grids */
+      @media (max-width: 768px) {
+        /* Change to 1 column on tablets/smaller devices */
+        .overview-column {
+          flex-basis: 100%;
+        }
+
+        .overview-videos {
+          flex-direction: row;
+        }
+
+        /* Change to 2 columns on tablets/smaller devices */
+        .video-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      @media (max-width: 480px) {
+        /* Remove title break on mobile devices */
+        .title-break {
+          display: none;
+        }
+
+        /* Change to 1 column on mobile phones */
+        .video-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      footer {
+        margin: 2rem 0;
+        color: var(--text-secondary);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .citation-box {
+        background: var(--background-secondary);
+        border: 1px solid var(--border-color);
+        text-align: left;
+        border-radius: 5px;
+        padding: 1rem;
+        position: relative;
+      }
+
+      .citation-pre {
+        margin: 0;
+        font-family: monospace;
+        font-size: 0.9rem;
+        white-space: pre-wrap;
+        word-wrap: break-word;
+      }
+
+      .citation-button {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        font-size: 1.5rem;
+        color: var(--border-color);
+      }
+
+      .paper-title {
+        /*set font to google sans*/
+        font-family: "Google Sans", Arial, sans-serif;
+      }
+
+      .figure {
+        position: relative;
+        width: 360px; /* can be omitted for a regular non-lazy image */
+        max-width: 100%;
+      }
+      .figure img.Sirv.image-hover {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        object-fit: contain;
+        opacity: 0;
+        transition: opacity .2s;
+      }
+      .figure:hover img.Sirv.image-hover {
+        opacity: 1;
+      }
+      .left-caption {
+        text-align: left;
+        text-align: justify;
+        font-family: 'Noto Sans', sans-serif;
+        font-size: .75rem;
+      }
+      .paragraph {
+        text-align: left;
+        text-align: justify;
+      }
+      .container {
+        /* we override bootstrap margins */
+        max-width: 960px;
+      }
+
+      .grid-container {
+        display: grid;
+        grid-template-columns: 120px 1fr 1fr 1fr;
+        gap: 15px;
+        width: 100%;
+        max-width: 900px;
+        margin: 0 auto;
+        align-items: center;
+      }
+
+      /* Keep label text readable but let columns shrink naturally */
+      .label-cell {
+        font-size: 1.2rem;
+        text-align: center;
+        padding: 10px;
+        word-wrap: break-word;
+      }
+
+      /* Make GIF cells and images fluid */
+      .gif-cell {
+        width: 100%;
+        overflow: hidden;
+      }
+
+      .gif-cell img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: contain;
+      }
+
+      /* Allow the entire grid to scale smoothly on smaller screens */
+      @media (max-width: 768px) {
+        .grid-container {
+          grid-template-columns: 100px 1fr 1fr 1fr;
+          gap: 10px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .grid-container {
+          grid-template-columns: 80px 1fr 1fr 1fr;
+          gap: 8px;
+        }
+
+        .label-cell {
+          font-size: 0.9rem;
+          padding: 5px;
+        }
+      }
+
+
+      .small-caption {
+        font-family: 'Noto Sans', sans-serif;
+        font-size: .75rem;
+        text-align: center;
+      }
+
+
+      .header-actions {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 24px 0;
+      }
+
+      .neurips-subtitle {
+        display: inline-flex;
+        align-items: center;
+        color: rgb(55, 65, 81);
+        background: white;
+        padding: 12px 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid rgb(229, 231, 235);
+        font-weight: 500;
+        margin: 0;
+      }
+
+      .button-wrapper {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .train-label {
+        display: inline-block;
+        background: rgb(249, 250, 251); /* light gray background */
+        color: rgb(31, 41, 55); /* dark gray text */
+        padding: 8px 16px;
+        border-radius: 8px;
+        border-left: 4px solid rgb(107, 114, 128); /* gray left accent */
+        font-weight: 600;
+        font-size: 1rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+      }
+
+      .test-label {
+        display: inline-block;
+        background: white;
+        color: rgb(185, 28, 28); /* deep red text */
+        padding: 1px 20px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(220, 38, 38, 0.15);
+        border: 1px solid rgb(254, 226, 226); /* very subtle red border */
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="content-wrapper">
+      <header>
+        <h1 class="paper-title">Generalizable Reasoning through Compositional
+          <br class="title-break" /> Energy Minimization
+        </h1>
+        <div class="authors">
+          <a href="https://alexoarga.github.io/" target="_blank" rel="noopener noreferrer" class="text-general">
+            Alexandru Oarga
+          </a>,
+          <a href="https://yilundu.github.io/" target="_blank" rel="noopener noreferrer" class="text-general">
+            Yilun Du
+          </a>
+        </div>
+      </header>
+
+      <div class="header-actions">
+        <p class="neurips-subtitle text-general">
+          NeurIPS 2025 (Spotlight)
+        </p>
+        
+        <div class="button-wrapper">
+          <a class="btn-link" href="https://arxiv.org/abs/2510.20607" target="_blank" rel="noopener noreferrer">
+            <span class="icon">
+              <i class="ai ai-arxiv"></i>
+            </span>
+            Paper
+          </a>
+          <a class="btn-link" href="assets/paper.pdf" target="_blank" rel="noopener noreferrer">
+            <i class="fas fa-file-pdf"></i>
+            PDF
+          </a>
+          <a class="btn-link" href="https://github.com/alexOarga/compositional_reasoning">
+            <i class="fa-brands fa-github"></i>
+            Code
+          </a>
+        </div>
+      </div>
+
+      <div class="text-section">
+        <h2>TL;DR</h2>
+        <p class="text-general">
+          Compositional energy-based approach outperforms existing methods by combining
+           subproblem energy landscapes, enabling better generalization to larger and 
+           more complex reasoning problems. Parallel Energy Minimization is applied to 
+           improve solution quality when sampling from these constructed energy 
+           landscapes.
+        </p>
+      </div>
+    </div>
+
+    <!--
+    <img src="imgs/abstract.png" alt="Abstract figure" style="width: 100%; max-width: 820px;"/>
+    -->
+
+    <div class="content-wrapper">
+      <div class="text-section">
+            <div class="grid-container">
+              <!-- Row 1 -->
+              <div class="label-cell test-label text-general">Train</div>
+              <div class="gif-cell">
+                  <img src="imgs_small/nqueens-row.gif" alt="Train example 1">
+              </div>
+              <div class="gif-cell">
+                  <img src="imgs/color_edge.gif" alt="Train example 2">
+              </div>
+              <div class="gif-cell">
+                  <img src="imgs_small/xwords_row.gif" alt="Train example 2">
+              </div>
+
+              <!-- Row 2 -->
+              <div class="label-cell test-label text-general">Test</div>
+              <div class="gif-cell">
+                  <img src="imgs_small/nqueens-single.gif" alt="Test example 1">
+              </div>
+              <div class="gif-cell">
+                  <img src="imgs/color_full.gif" alt="Test example 2">
+              </div>
+              <div class="gif-cell">
+                  <img src="imgs_small/xwords.gif" alt="Test example 2">
+              </div>
+
+              <div class="label-cell"></div>
+              <div class="gif-cell">
+                  <p class="small-caption">N-Queens</p>
+              </div>
+              <div class="gif-cell">
+                  <p class="small-caption">Graph Coloring</p>
+              </div>
+              <div class="gif-cell">
+                  <p class="small-caption">Crosswords</p>
+              </div>
+
+            </div>
+
+          </div>
+      </div>
+    </div>
+
+    <div class="content-wrapper">
+      <div class="text-section">
+        <h2>Abstract</h2>
+        <p class="text-general">
+          Generalization is a key challenge in machine learning, specifically in reasoning
+tasks, where models are expected to solve problems more complex than those
+encountered during training. Existing approaches typically train reasoning models
+in an end-to-end fashion, directly mapping input instances to solutions. While
+this allows models to learn useful heuristics from data, it often results in limited
+generalization beyond the training distribution. In this work, we propose a novel
+approach to reasoning generalization by learning energy landscapes over the solu-
+tion spaces of smaller, more tractable subproblems. At test time, we construct a
+global energy landscape for a given problem by combining the energy functions
+of multiple subproblems. This compositional approach enables the incorporation
+of additional constraints during inference, allowing the construction of energy
+landscapes for problems of increasing difficulty. To improve the sample quality
+from this newly constructed energy landscape, we introduce Parallel Energy Mini-
+mization (PEM). We evaluate our approach on a wide set of reasoning problems.
+Our method outperforms existing state-of-the-art methods, demonstrating its ability
+to generalize to larger and more complex problems.
+        </p>
+      </div>
+
+    </div>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            
+            <h2 class="title-general">Compositional Reasoning</h2>
+            <!-- align left -->
+            <p class="text-general">
+              We propose a framework that generalizes to complex problems by decomposing 
+              them into simpler, tractable subproblems with their own energy-based models (EBMs). 
+              A global solution is then obtained by jointly minimizing the sum of the subproblem 
+              energy functions, effectively combining their solutions to solve much larger
+              problems than those seen during training.
+            </p>
+            <br>
+            <div class="content-section">
+              <!-- include imgs/nqueens.gif-->
+              <figure>
+                <img src="imgs/energy.png" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <div class="left-caption">
+                  <b>Composition of Energy Landscapes.</b>
+                  In this example, the energy function for a single edge (left) assigns lower energy to valid color assignments and higher energy to invalid ones.
+                  By composing multiple such edge-level energy functions, we can solve larger graph coloring problems (right). 
+                  The composed energy landscape of the right graph is obtained by summing the individual edge energies, and the minima of the composed landscape correspond 
+                  to a valid solution.
+                </div>
+              </figure>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title-general">Parallel Energy Minimization</h2>
+            <!--
+            <h2 class="title is-4" style="text-align: left; margin-bottom: 0.5rem; font-family: 'Noto Sans', sans-serif;">
+              N-queens
+            </h2>
+            -->
+            <!-- align left -->
+            <p class="text-general">
+              To sample from complex energy landscapes, obtained after combining
+              multiple subproblem energy functions, we propose a novel
+                optimization framework called Parallel Energy Minimization (PEM).
+               PEM maintains and resamples multiple particles 
+               to effectively explore composed energy landscapes. 
+               By using a larger number of particles, PEM enhances exploration of the composed energy landscape.
+            </p>
+            <br>
+            <div class="content-section">
+              <!-- include imgs/nqueens.gif-->
+              <figure>
+                <img src="imgs_small/nqueens.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <div class="left-caption">
+                  <br>
+                  <b>N-Queens Problem.</b>
+                  We illustrate the generation process for the N-Queens problem with eight particles. By using 
+                  multiple particles with PEM,
+                  we effectively generate valid solutions to the problem.
+                </div>
+              </figure>
+              <br>
+              <figure>
+                <img src="imgs_small/color.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <div class="left-caption">
+                  <br>
+                  <b>Graph Coloring Problem.</b>
+                  We illustrate the generation process of a graph coloring problem with eight particles.
+                  By using multiple particles with PEM, we are able to find a valid coloring of the graph.
+                </div>
+              </figure>
+              <br>
+              <figure>
+                <img src="imgs_small/x_words.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <div class="left-caption">
+                  <br>
+                  <b>Crosswords.</b>
+                  We illustrate the generation process of a solution to a given crossword puzzle using eight particles.
+                  Hints for each word are omitted for clarity.
+                </div>
+              </figure>
+
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+    
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered has-text-centered">
+          <div class="column is-full-width has-text-justified">
+            <h2 class="title-general">Performance</h2>
+
+            <p class="text-general">
+              Our approch can generate correct solutions to the 8-queens problem with a
+              higher accuracy than existing state-of-the-art methods. We report below
+              the performance of our method compared with baselines and the effect of
+              varying the number of particles.
+            </p>
+
+            <br>
+
+            <div class="columns is-vcentered">
+              <div class="column">
+                  <img src="imgs/correct_instances_barplot.png">
+                  <p class="left-caption">
+                  <b>8-Queens Problem Evaluation. </b>We compare the performance
+                    against state-of-the-art combinatorial optimization models on 
+                    the 8-queens solution generation task.
+                    All the models were trained with 1 single instance of the 8-queens problem.
+                  </p>
+              </div>
+              <div class="column">
+                <img src="imgs/results_nparticles.png" style="width: 75%; display: block; margin: auto;"/>
+                  <p class="left-caption">
+                  <b>Number of Particles vs Correct Instances Across Problem Difficulties.</b>
+                     We sampled 100 solutions each from N-queens problems of increasing difficulty
+                      (7 to 10 queens). In all cases, a higher number of particles results 
+                      in more correct instances. 
+                  </p>
+              </div>
+            </div>
+
+            <br>
+
+            <p class="text-general">
+              Our method outperforms the previous state-of-the-art neural combinatorial 
+              and SAT solvers, and is able to find a larger number
+              of correct instances of the problem in the 3-SAT solving.
+              It consistently outperforms other approaches both within the training distribution and 
+              when applied to larger, out-of-distribution instances.
+              We report below the comparison in both distributions.
+            </p>
+
+            <br>
+
+            <img src="imgs/satisfied_clauses_barplot.png" style="width: 100%; display: block; margin: auto;"/>
+
+            <p class="left-caption">
+              <b>3-SAT Problem Evaluation. </b> We compare the performance
+              against the state-of-the-art combinatorial optimization models
+              and neural SAT solvers on the 3-SAT task. 
+              Models are evaluated on a distribution similar to the training
+              distribution and a larger distribution. 
+              Similar distribution has 100 instances with 20 variables and 91 clauses,
+              while larger distribution has 100 instances with 50 variables and 218 clauses.
+              Our approach outperforms existing methods.
+            </p>
+
+            <br>
+
+            <p class="text-general">
+              We compare our approach with GNN-based methods for graph coloring and show that it
+              is able to generalize to larger graphs and different graph distributions
+              while maintaining strong performance across different scales.
+              On average, our method produces solutions with fewer conflicting edges. The comparison with other methods is presented below.
+            </p>
+
+            <br>
+
+            <img src="imgs/distributions_barplot.png" style="width: 100%; display: block; margin: auto;"/>
+
+            <p class="left-caption">
+              <b>Graph Coloring Problem Evaluation. </b> 
+              We compare the performance
+              against canonical GNNs and GNN-based methods for graph coloring
+              on different random graph distributions.
+              Performance is measured as the number of conflicting edges, with lower indicating better. 
+              For each distribution, we report the average over five instances.
+              Our approach outperforms existing methods on most instances
+              and generalizes better to larger and denser graphs. 
+            </p>
+
+          </div>
+        </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column is-full-width">
+            <h2 class="title-general">Related Projects</h2>
+            <div class="paragraph text-general">
+              Check out a list of our related papers on compositional generation and energy based models. A full list can be found <a href="https://energy-based-model.github.io/Energy-based-Model-MIT/">here</a>!
+            </div>
+            <br>
+
+            <div class="row vspace-top">
+            <div class="col-sm-3">
+                <img style="border: 1px solid var(--text-primary); border-radius: 8px;"
+                width="100%" src="mp4/ired.gif"></img>
+            </div>
+            <div class="col-sm-9">
+              <div class="paper-title paragraph">
+                <a href="https://energy-based-model.github.io/ired/"> Learning Iterative Reasoning through Energy Diffusion</a>
+            </div>
+            <div class="paragraph text-general">
+              We propose energy optimization as an approach to add iterative reasoning into neural network. We illustrate how this procedure enables generalization to harder instances of problems unseen at training time on both continuous, discrete and image processing tasks. 
+            </div>
+            </div>
+            </div>
+              <br>
+
+            <div class="row vspace-top">
+            <div class="col-sm-3">
+                <video width="100%" playsinline="" autoplay="" preload="" muted="">
+                    <source src="mp4/recyle.mp4" type="video/mp4">
+                </video>
+            </div>
+            <div class="col-sm-9">
+              <div class="paper-title paragraph">
+                <a href="https://energy-based-model.github.io/reduce-reuse-recycle/">Reduce, Reuse, Recycle: Compositional Generation with Energy-Based Diffusion Models and MCMC</a>
+            </div>
+            <div class="paragraph text-general">
+                We propose new samplers, inspired by MCMC, to enable successful compositional generation. Further, we propose an energy-based parameterization of diffusion models which enables the use of new compositional operators and more sophisticated, Metropolis-corrected samplers.
+            </div>
+            </div>
+            </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    <div class="content-wrapper">
+      <div class="citation-section">
+        <h2 class="title-general">BibTeX</h2>
+        <div class="citation-box">
+          <pre id="citation-text" class="citation-pre">
+@article{oarga2025generalizable,
+  title={Generalizable Reasoning through Compositional Energy Minimization},
+  author={Oarga, Alexandru and Du, Yilun},
+  journal={arXiv preprint arXiv:2510.20607},
+  year={2025}
+}</pre
+          >
+          <button onclick="copyCitation()" class="citation-button" title="Copy to clipboard">
+            <i class="fa-regular fa-copy"></i>
+          </button>
+        </div>
+      </div>
+
+      <script>
+        function copyCitation() {
+          const citationText = document.getElementById('citation-text').innerText; // Get the citation text
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            // Modern method using Clipboard API
+            navigator.clipboard
+              .writeText(citationText)
+
+              .catch(() => {
+                fallbackCopy(citationText);
+              });
+          } else {
+            // Fallback method
+            fallbackCopy(citationText);
+          }
+        }
+
+        function fallbackCopy(text) {
+          // Create a temporary textarea element
+          const textArea = document.createElement('textarea');
+          textArea.value = text;
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy'); // Fallback to execCommand
+          } catch (err) {
+            // Cannot use alert()
+            console.error('Failed to copy citation.');
+          }
+          document.body.removeChild(textArea); // Clean up
+        }
+      </script>
+
+      <script>
+        const failureToggle = document.getElementById('failure-toggle');
+        const failureGrid = document.getElementById('failure-grid');
+        const failureArrow = document.getElementById('failure-arrow');
+        let videosLoaded = false;
+
+        failureToggle.addEventListener('click', () => {
+          const isHidden = failureGrid.style.display === 'none';
+          if (isHidden) {
+            failureGrid.style.display = 'grid';
+            failureArrow.textContent = '▼';
+            if (!videosLoaded) {
+              const videos = failureGrid.querySelectorAll('video[data-src]');
+              videos.forEach((video) => {
+                video.src = video.getAttribute('data-src');
+              });
+              videosLoaded = true;
+            }
+          } else {
+            failureGrid.style.display = 'none';
+            failureArrow.textContent = '▶';
+          }
+        });
+      </script>
+
+      <footer>
+        Thank you for visiting our project site!
+      </footer>
+    </div>
+  </body>
+</html>
+
