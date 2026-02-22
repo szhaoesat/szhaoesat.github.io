@@ -2,17 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Generalizable Reasoning through Compositional Energy Minimization</title>
+    <title>EinChip: A 4.6/1.5 TOPS/W 6/24b log-compute Einsum-based accelerator for Neuro Symbolic AI</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!-- Open Graph Meta Tags -->
-    <meta property="og:title" content="Generalizable Reasoning through Compositional Energy Minimization" />
+    <meta property="og:title" content="EinChip: A 4.6/1.5 TOPS/W 6/24b log-compute Einsum-based accelerator for Neuro Symbolic AI" />
     <meta
       property="og:description"
-      content="Generalizable Reasoning through Compositional Energy Minimization"
+      content="EinChip: A 4.6/1.5 TOPS/W 6/24b log-compute Einsum-based accelerator for Neuro Symbolic AI"
     />
-    <meta property="og:image" content="https://alexoarga.github.io/compositional_reasoning/assets/preview.png" />
-    <meta property="og:url" content="https://alexoarga.github.io/compositional_reasoning" />
+    <meta property="og:image" content="https://szhaoesat.github.io/Einsum_chip/assets/preview.png" />
+    <meta property="og:url" content="https://szhaoesat.github.io/Einsum_chip/" />
     <meta property="og:type" content="website" />
 
     <!-- Favicon -->
@@ -499,12 +499,22 @@
           <br class="title-break" /> Energy Minimization
         </h1>
         <div class="authors">
-          <a href="https://alexoarga.github.io/" target="_blank" rel="noopener noreferrer" class="text-general">
-            Alexandru Oarga
+          <a href="https://lingyunyao.github.io/" target="_blank" rel="noopener noreferrer" class="text-general">
+            Lingyun Yao
           </a>,
-          <a href="https://yilundu.github.io/" target="_blank" rel="noopener noreferrer" class="text-general">
-            Yilun Du
+          <a href="https://szhaoesat.github.io/" target="_blank" rel="noopener noreferrer" class="text-general">
+            Shirui Zhao
           </a>
+          <a href="https://www.linkedin.com/in/jelin-leslin-29b7b28a" target="_blank" rel="noopener noreferrer" class="text-general">
+            Jelin Leslin
+          </a>,
+          <a href="https://micas.esat.kuleuven.be/team/marian-verhelst" target="_blank" rel="noopener noreferrer" class="text-general">
+            Marian Verhelst
+          </a>
+          <a href="" target="_blank" rel="noopener noreferrer" class="text-general">
+             Martin Andraud
+          </a>,
+     
         </div>
       </header>
 
@@ -595,22 +605,7 @@
       <div class="text-section">
         <h2>Abstract</h2>
         <p class="text-general">
-          Generalization is a key challenge in machine learning, specifically in reasoning
-tasks, where models are expected to solve problems more complex than those
-encountered during training. Existing approaches typically train reasoning models
-in an end-to-end fashion, directly mapping input instances to solutions. While
-this allows models to learn useful heuristics from data, it often results in limited
-generalization beyond the training distribution. In this work, we propose a novel
-approach to reasoning generalization by learning energy landscapes over the solu-
-tion spaces of smaller, more tractable subproblems. At test time, we construct a
-global energy landscape for a given problem by combining the energy functions
-of multiple subproblems. This compositional approach enables the incorporation
-of additional constraints during inference, allowing the construction of energy
-landscapes for problems of increasing difficulty. To improve the sample quality
-from this newly constructed energy landscape, we introduce Parallel Energy Mini-
-mization (PEM). We evaluate our approach on a wide set of reasoning problems.
-Our method outperforms existing state-of-the-art methods, demonstrating its ability
-to generalize to larger and more complex problems.
+Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limitations of deep neural networks (DNNs) systems by combining the feature extraction strength of DNNs with the logical reasoning capabilities of symbolic models. Yet, on hardware, while DNNs benefits from low-precision, highly parallel processing, symbolic models require higher precision and exhibit sparser computation patterns, making existing DNNs accelerators ill-suited. To address this bottleneck, we introduce EinChip, a unified NeSy AI accelerator based on Einstein's Summation Notation (Einsum). It enables the execution of computationally diverse neural and symbolic AI tasks within a single architecture by representing both models into an Einsum-based representation, and devise a single architecture to accelerate these Einsums through an efficient customized approximate 6/24-bit logarithmic processing unit. Measurements demonstrate that EinChip achieves a competitive 4.6 TOPS/W for neuro tasks and over 10 times higher efficiency (1.5 TOPS/W) for symbolic tasks compared to existing solutions.
         </p>
       </div>
 
