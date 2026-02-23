@@ -513,6 +513,22 @@
         background: #1557b0;
       }
 
+      /* ensure figures behave responsively */
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+
+      /* stack grid cells on narrow viewports */
+      @media (max-width: 640px) {
+        .grid-container {
+          display: block;
+        }
+        .gif-cell {
+          margin-bottom: 1rem;
+        }
+      }
+
     </style>
   </head>
   <body>
@@ -580,7 +596,7 @@
     </div>
 
     <!--
-    <img src="imgs/abstract.png" alt="Abstract figure" style="width: 100%; max-width: 820px;"/>
+    <img src="imgs/abstract.png" alt="Abstract figure" style="width: 100%; max-width: 820px; max-width:100%;"/>
     -->
 
     <div class="content-wrapper">
@@ -655,7 +671,7 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
             <div class="content-section">
               <!-- include imgs/nqueens.gif-->
               <figure>
-                <img src="imgs/energy.png" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <img src="imgs/energy.png" alt="N-Queens" style="width: 100%; max-width: 1000px; max-width:100%;"/>
                 <div class="left-caption">
                   <b>Composition of Energy Landscapes.</b>
                   In this example, the energy function for a single edge (left) assigns lower energy to valid color assignments and higher energy to invalid ones.
@@ -694,7 +710,7 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
             <div class="content-section">
               <!-- include imgs/nqueens.gif-->
               <figure>
-                <img src="imgs_small/nqueens.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <img src="imgs_small/nqueens.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; max-width:100%;"/>
                 <div class="left-caption">
                   <br>
                   <b>N-Queens Problem.</b>
@@ -705,7 +721,7 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
               </figure>
               <br>
               <figure>
-                <img src="imgs_small/color.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <img src="imgs_small/color.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; max-width:100%;"/>
                 <div class="left-caption">
                   <br>
                   <b>Graph Coloring Problem.</b>
@@ -715,7 +731,7 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
               </figure>
               <br>
               <figure>
-                <img src="imgs_small/x_words.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; "/>
+                <img src="imgs_small/x_words.gif" alt="N-Queens" style="width: 100%; max-width: 1000px; max-width:100%;"/>
                 <div class="left-caption">
                   <br>
                   <b>Crosswords.</b>
@@ -758,7 +774,7 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
                   </p>
               </div>
               <div class="column">
-                <img src="imgs/results_nparticles.png" style="width: 75%; display: block; margin: auto;"/>
+                <img src="imgs/results_nparticles.png" style="width: 75%; max-width:100%; display: block; margin: auto;"/>
                   <p class="left-caption">
                   <b>Number of Particles vs Correct Instances Across Problem Difficulties.</b>
                      We sampled 100 solutions each from N-queens problems of increasing difficulty
@@ -781,7 +797,7 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
 
             <br>
 
-            <img src="imgs/satisfied_clauses_barplot.png" style="width: 100%; display: block; margin: auto;"/>
+            <img src="imgs/satisfied_clauses_barplot.png" style="width: 100%; max-width:100%; display: block; margin: auto;"/>
 
             <p class="left-caption">
               <b>3-SAT Problem Evaluation. </b> We compare the performance
@@ -805,7 +821,7 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
 
             <br>
 
-            <img src="imgs/distributions_barplot.png" style="width: 100%; display: block; margin: auto;"/>
+            <img src="imgs/distributions_barplot.png" style="width: 100%; max-width:100%; display: block; margin: auto;"/>
 
             <p class="left-caption">
               <b>Graph Coloring Problem Evaluation. </b> 
