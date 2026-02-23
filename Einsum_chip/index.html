@@ -490,9 +490,35 @@
         border: 1px solid rgb(254, 226, 226); /* very subtle red border */
       }
 
+      .language-toggle {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 100;
+      }
+
+      .language-toggle button {
+        background: var(--google-blue);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: background 0.3s ease;
+      }
+
+      .language-toggle button:hover {
+        background: #1557b0;
+      }
+
     </style>
   </head>
   <body>
+    <div class="language-toggle">
+      <button id="language-toggle-btn" onclick="toggleLanguage()">中文</button>
+    </div>
     <div class="content-wrapper">
       <header>
         <h1 class="paper-title">Generalizable Reasoning through Compositional
@@ -896,6 +922,59 @@ Neuro-Symbolic (NeSy) AI has recently emerged to address certain reasoning limit
           }
           document.body.removeChild(textArea); // Clean up
         }
+      </script>
+
+      <script>
+        // Language Toggle Functionality
+        const currentLanguage = localStorage.getItem('language') || 'en';
+        
+        function setLanguage(lang) {
+          localStorage.setItem('language', lang);
+          const btn = document.getElementById('language-toggle-btn');
+          
+          if (lang === 'zh') {
+            btn.textContent = 'English';
+            // Show Chinese translation
+            document.querySelectorAll('[data-en]').forEach(el => {
+              const chineseText = el.getAttribute('data-zh');
+              if (chineseText) {
+                el.textContent = chineseText;
+              }
+            });
+            document.querySelectorAll('[data-en-html]').forEach(el => {
+              const chineseHtml = el.getAttribute('data-zh-html');
+              if (chineseHtml) {
+                el.innerHTML = chineseHtml;
+              }
+            });
+          } else {
+            btn.textContent = '中文';
+            // Show English translation
+            document.querySelectorAll('[data-en]').forEach(el => {
+              const englishText = el.getAttribute('data-en');
+              if (englishText) {
+                el.textContent = englishText;
+              }
+            });
+            document.querySelectorAll('[data-en-html]').forEach(el => {
+              const englishHtml = el.getAttribute('data-en-html');
+              if (englishHtml) {
+                el.innerHTML = englishHtml;
+              }
+            });
+          }
+        }
+        
+        function toggleLanguage() {
+          const current = localStorage.getItem('language') || 'en';
+          const newLang = current === 'en' ? 'zh' : 'en';
+          setLanguage(newLang);
+        }
+        
+        // Initialize language on page load
+        window.addEventListener('DOMContentLoaded', () => {
+          setLanguage(currentLanguage);
+        });
       </script>
 
       <script>
